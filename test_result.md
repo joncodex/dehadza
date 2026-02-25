@@ -101,3 +101,221 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Build Dehadza Store - Full-stack e-commerce with product catalog, cart, checkout with OTP verification, payment processing, order tracking, reviews, and admin dashboard. Using Next.js + MongoDB with MOCKED integrations (Africa's Talking OTP, Flutterwave Payment, SendGrid Email)"
+
+backend:
+  - task: "Product CRUD API"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented GET /api/products, POST /api/products, PUT /api/products/[id], DELETE /api/products/[id]. Includes stock management and soft delete"
+  
+  - task: "Order Creation with Stock Reservation"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented POST /api/orders. Creates order, validates stock, reserves stock by decrementing product quantity, sets 20-minute expiration timer"
+  
+  - task: "Order Expiration Background Job"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Background job runs every 60 seconds, finds expired pending orders, restores stock, marks order as CANCELLED"
+  
+  - task: "OTP Verification Flow"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented POST /api/orders/[id]/verify-phone (sends OTP - MOCKED) and POST /api/orders/[id]/confirm-otp (verifies OTP). OTP stored in otpVerifications collection with 5-minute expiry"
+  
+  - task: "Delivery Option Configuration"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented PUT /api/orders/[id]/delivery. Calculates delivery fee based on product settings and delivery zones, updates order total"
+  
+  - task: "Payment Processing Flow"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented POST /api/orders/[id]/payment (initiate - MOCKED) and POST /api/orders/[id]/confirm-payment (verify and confirm). Verifies amount >= order total, updates order to CONFIRMED, sends receipt email (MOCKED)"
+  
+  - task: "Admin Dashboard API"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented GET /api/admin/dashboard with date range filtering. Returns total revenue, order counts, best-selling products"
+  
+  - task: "Order Status Management"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented PUT /api/orders/[id]/status for admin to progress orders through: PENDING → CONFIRMED → PACKAGED → READY → DELIVERED"
+  
+  - task: "Reviews System"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented POST /api/reviews (only after delivery) and GET /api/reviews?productId=x. Validates order is delivered and product was in order"
+  
+  - task: "Customer Order Tracking"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented GET /api/customers/[phone]/orders to fetch all orders for a phone number"
+  
+  - task: "Database Seeding"
+    implemented: true
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented POST /api/seed to populate database with 5 sample products"
+
+frontend:
+  - task: "Product Catalog Display"
+    implemented: true
+    working: "NA"
+    file: "/app/app/page.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Grid layout showing products with images, prices, stock status, delivery options"
+  
+  - task: "Shopping Cart Management"
+    implemented: true
+    working: "NA"
+    file: "/app/app/page.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Add/remove items, update quantities, view cart total, stock validation"
+  
+  - task: "Multi-Step Checkout Flow"
+    implemented: true
+    working: "NA"
+    file: "/app/app/page.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "4-step checkout: (1) Customer info, (2) Delivery option, (3) OTP verification, (4) Payment. Shows 20-minute expiration warning"
+  
+  - task: "Order Tracking Interface"
+    implemented: true
+    working: "NA"
+    file: "/app/app/page.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Track orders by phone number, view order status with color coding, submit reviews after delivery"
+  
+  - task: "Admin Dashboard"
+    implemented: true
+    working: "NA"
+    file: "/app/app/page.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "View stats (revenue, orders), manage products (CRUD), manage orders (status updates), view best sellers, date range filtering"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Product CRUD API"
+    - "Order Creation with Stock Reservation"
+    - "Order Expiration Background Job"
+    - "OTP Verification Flow"
+    - "Payment Processing Flow"
+    - "Database Seeding"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Initial implementation complete. All core features implemented with MOCKED integrations (Africa's Talking OTP, Flutterwave Payment, SendGrid Email). Critical flows to test: (1) Order creation with stock reservation, (2) 20-minute expiration logic, (3) Complete checkout flow from cart → payment → confirmation, (4) Admin dashboard stats. Please test all backend APIs thoroughly, especially the order expiration job."
