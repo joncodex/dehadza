@@ -1,18 +1,20 @@
+import { Inter } from 'next/font/google'
 import './globals.css'
+import { Toaster } from '@/components/ui/toaster'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Next.js MongoDB Template',
-  description: 'A simple template with App Router, MongoDB, and shadcn/ui',
+  title: 'Dehadza Store - E-commerce Platform',
+  description: 'Full-featured e-commerce platform with OTP verification and order tracking',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <script dangerouslySetInnerHTML={{__html:'window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);'}} />
-      </head>
-      <body>
+      <body className={inter.className}>
         {children}
+        <Toaster />
       </body>
     </html>
   )
