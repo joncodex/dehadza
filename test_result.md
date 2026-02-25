@@ -122,63 +122,78 @@ backend:
   
   - task: "Order Creation with Stock Reservation"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/app/api/[[...path]]/route.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented POST /api/orders. Creates order, validates stock, reserves stock by decrementing product quantity, sets 20-minute expiration timer"
+      - working: true
+        agent: "testing"
+        comment: "✅ PASSED - Order creation working correctly with stock reservation. Stock properly decremented when order created. Insufficient stock validation working. Order expires at 20 minutes with PENDING status."
   
   - task: "Order Expiration Background Job"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/app/api/[[...path]]/route.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Background job runs every 60 seconds, finds expired pending orders, restores stock, marks order as CANCELLED"
+      - working: true
+        agent: "testing"
+        comment: "✅ PASSED - Expiration logic correctly implemented. Orders set with 20-minute expiration timer. Background job running every 60 seconds to handle expired orders and restore stock."
   
   - task: "OTP Verification Flow"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/app/api/[[...path]]/route.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented POST /api/orders/[id]/verify-phone (sends OTP - MOCKED) and POST /api/orders/[id]/confirm-otp (verifies OTP). OTP stored in otpVerifications collection with 5-minute expiry"
+      - working: true
+        agent: "testing"
+        comment: "✅ PASSED - OTP flow working correctly. Africa's Talking integration MOCKED. OTP generated and stored with 5-minute expiry. Phone verification status updated on successful OTP confirmation. Invalid OTP properly rejected."
   
   - task: "Delivery Option Configuration"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/app/api/[[...path]]/route.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented PUT /api/orders/[id]/delivery. Calculates delivery fee based on product settings and delivery zones, updates order total"
+      - working: true
+        agent: "testing"
+        comment: "✅ PASSED - Delivery configuration working. Delivery fee calculated based on product settings and zones. Order total updated correctly to include delivery fees."
   
   - task: "Payment Processing Flow"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/app/api/[[...path]]/route.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented POST /api/orders/[id]/payment (initiate - MOCKED) and POST /api/orders/[id]/confirm-payment (verify and confirm). Verifies amount >= order total, updates order to CONFIRMED, sends receipt email (MOCKED)"
+      - working: true
+        agent: "testing"
+        comment: "✅ PASSED - Payment processing working correctly. Flutterwave integration MOCKED. Payment initiation generates transaction ID and payment link. Payment confirmation validates amount and updates order to CONFIRMED/PAID. SendGrid email integration MOCKED. Insufficient payment amount properly rejected."
   
   - task: "Admin Dashboard API"
     implemented: true
